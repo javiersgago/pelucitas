@@ -11,17 +11,20 @@
 |
 */
 
+// Rutas públicas
 Route::get('/', 'InicioController@mostrarInicio');
-
 Route::resource('servicios', 'ServiciosController');
-
 Route::resource('contacto', 'ContactoController');
-
 Route::resource('cita', 'CitaController');
 
-Auth::routes();
+// Rutas empleados
+Route::resource('empleados', 'EmpleadosController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Rutas Auth
+Auth::routes(['register' => false]);
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+// Rutas Ajax
 Route::post('citasPeluquero', 'AjaxController@citasPeluquero');
 Route::post('citasDia', 'AjaxController@citasDia');
