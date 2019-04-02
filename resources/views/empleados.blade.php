@@ -5,7 +5,18 @@
 @endsection
 
 @section("contenido")
-	@if (session('status'))
-        {{ session('status') }}
-    @endif
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+        @foreach ($citas as $cita)
+            
+        @endforeach
+    </div>
+    <div class="col-sm-9">
+        @foreach ($citas as $cita)
+
+        @endforeach
+    </div>
+  </div>
+</div>
 @endsection
