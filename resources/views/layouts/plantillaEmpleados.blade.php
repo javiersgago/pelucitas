@@ -14,6 +14,43 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+function agenda() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			if (this.responseText.includes('Error')) {
+				alert(this.responseText);
+			} else {
+				document.getElementById("agenda").innerHTML = this.responseText;
+			}
+		}
+	};
+	xhr.open("POST", "agenda", true);
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var parametros = "_token={{ csrf_token() }}";
+	var parametros = parametros + "&dia=" + document.getElementById("dia").value;
+	var parametros = parametros + "&peluquero=" + document.getElementById("peluquero").value;
+	xhr.send(parametros);
+}
+function borrarCita(cita) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			if (this.responseText.includes('Error')) {
+				alert(this.responseText);
+			} else {
+				agenda();
+			}
+		}
+	};
+	xhr.open("POST", "borrarCita", true);
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var parametros = "_token={{ csrf_token() }}";
+	var parametros = parametros + "&cita=" + cita;
+	xhr.send(parametros);
+}
+</script>
 </head>
 <body>
 	<div>

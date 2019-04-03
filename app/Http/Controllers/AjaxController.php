@@ -5,9 +5,33 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Cita;
 use App\Trabajo;
+use Illuminate\Support\Facades\Auth;
+use App\Agenda;
 
 class AjaxController extends Controller
 {
+
+    public function agenda(Request $request) {
+        $user = Auth::user();
+        $agenda = new Agenda;
+        $citas = $agenda->generar($request->peluquero, $request->dia);
+        echo view("ajax.agendaDia", [
+            "user" => $user,
+            "citas" => $citas,
+            "tamDiv" => $agenda->tamDiv
+        ]);
+    }
+
+    public function borrarCita(Request $request) {
+        $cita = Cita::find($request->cita);
+        $citaAsociada = Cita::where('cita_id', $cita->id);
+        if ($citaAsociada->count() != 0) {
+            $citaAsociada->first()->delete();
+            $cita->delete();
+        } else {
+            $cita->delete();
+        }   
+    }
 
     public function citasPeluquero(Request $request)
     {

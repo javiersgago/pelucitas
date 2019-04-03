@@ -22,9 +22,10 @@ Route::resource('empleados', 'EmpleadosController');
 
 // Rutas Auth
 Auth::routes(['register' => false]);
-// Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 // Rutas Ajax
 Route::post('citasPeluquero', 'AjaxController@citasPeluquero');
 Route::post('citasDia', 'AjaxController@citasDia');
+Route::post('agenda', 'AjaxController@agenda');
+Route::post('borrarCita', 'AjaxController@borrarCita');
