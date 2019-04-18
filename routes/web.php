@@ -18,7 +18,10 @@ Route::resource('contacto', 'ContactoController');
 Route::resource('cita', 'CitaController');
 
 // Rutas empleados
-Route::resource('empleados', 'EmpleadosController');
+Route::redirect('empleados', 'empleados/agenda');
+Route::resource('empleados/agenda', 'EmpleadosController');
+Route::resource('empleados/personal', 'PersonalController');
+Route::resource('empleados/servicios', 'GestionServiciosController');
 
 // Rutas Auth
 Auth::routes(['register' => false]);
@@ -29,3 +32,4 @@ Route::post('citasPeluquero', 'AjaxController@citasPeluquero');
 Route::post('citasDia', 'AjaxController@citasDia');
 Route::post('agenda', 'AjaxController@agenda');
 Route::post('borrarCita', 'AjaxController@borrarCita');
+Route::post('cargarPerfil', 'AjaxController@cargarPerfil');

@@ -1,0 +1,42 @@
+@extends("layouts.plantillaEmpleados")
+
+@section("pagina")
+	Panel de administración del Personal
+@endsection
+
+@section("contenido")
+	@if ($errors->any())
+		<div class="alert alert-danger">
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@else
+		@if ($mensaje)
+			<div class="alert alert-success">
+				{{$mensaje}}
+			</div>
+		@endif
+	@endif
+	<form method="POST" action="" id="formulario">
+    	@csrf
+		Empleado <select id="empleado" name="empleado" onchange="cargarPerfil(this.value)">
+			<option value='0'>Nuevo empleado</option>
+			@foreach ($empleados as $empleado)
+          		<option value='{{ $empleado->id }}'>{{ $empleado->name }}</option>
+      		@endforeach
+		</select><br>
+		Nombre <input type="text" id="name" name="name" placeholder="Nombre"><br>
+		Correo electrónico <input type="text" id="email" name="email" placeholder="Correo electrónico"><br>
+		Contraseña <input type="password" name="password" placeholder="Contraseña"><br>
+		Administrador <input type="radio" id="esAdmin0" name="esAdmin" value="0" checked="true"> No 
+		<input type="radio" id="esAdmin1" name="esAdmin" value="1"> Si<br>
+		Hora de entrada <input type="time" id="entrada" name="entrada" value="09:00:00" required><br>
+		Inicio descanso <input type="time" id="inicioDescanso" name="inicioDescanso" value="13:00:00" required><br>
+		Duración descanso <input type="time" id="duracionDescanso" name="duracionDescanso" value="00:30:00" required><br>
+		Hora de salida <input type="time" id="salida" name="salida" value="17:00:00" required><br>
+		<input type="submit" value="Enviar">
+	</form>
+@endsection

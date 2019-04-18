@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zona Empleados</title>
-<link rel="stylesheet" type="text/css" href="css/app.css">
+<link rel="stylesheet" type="text/css" href="../css/app.css">
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -26,7 +26,7 @@ function agenda() {
 			}
 		}
 	};
-	xhr.open("POST", "agenda", true);
+	xhr.open("POST", "../agenda", true);
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	var parametros = "_token={{ csrf_token() }}";
 	var parametros = parametros + "&dia=" + document.getElementById("dia").value;
@@ -44,23 +44,40 @@ function borrarCita(cita) {
 			}
 		}
 	};
-	xhr.open("POST", "borrarCita", true);
+	xhr.open("POST", "../borrarCita", true);
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	var parametros = "_token={{ csrf_token() }}";
 	var parametros = parametros + "&cita=" + cita;
+	xhr.send(parametros);
+}
+function cargarPerfil(user) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			if (this.responseText.includes('Error')) {
+				alert(this.responseText);
+			} else {
+				document.getElementById("formulario").innerHTML = this.responseText;
+			}
+		}
+	};
+	xhr.open("POST", "../cargarPerfil", true);
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var parametros = "_token={{ csrf_token() }}";
+	var parametros = parametros + "&user=" + user;
 	xhr.send(parametros);
 }
 </script>
 </head>
 <body>
 	<div>
-		<a href="logout">Cerrar sesión</a>
+		<a href="../logout">Cerrar sesión</a>
 		<h2>@yield("pagina")</h2>
 		@if ($user->esAdmin)
 			<ul>
-				<li><a href="empleados">Agendas</a></li>
-				<li><a href="gestionTrabajadores">Trabajadores</a></li>
-				<li><a href="gestionServicios">Servicios</a></li>
+				<li><a href="agenda">Agendas</a></li>
+				<li><a href="personal">Trabajadores</a></li>
+				<li><a href="servicios">Servicios</a></li>
 				<li><a href="buzon">Buzón de contacto</a></li>
 			</ul>
 		@endif

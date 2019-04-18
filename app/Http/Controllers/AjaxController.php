@@ -10,6 +10,35 @@ use App\Agenda;
 
 class AjaxController extends Controller
 {
+    public function cargarPerfil(Request $request) {
+        $empleados = User::all();
+        if ($request->user) {
+            $empleado = User::find($request->user);
+            echo view("ajax.cargarPerfil", [
+                "user" => $request->user,
+                "name" => $empleado->name,
+                "email" => $empleado->email,
+                "esAdmin" => $empleado->esAdmin,
+                "entrada" => $empleado->entrada,
+                "inicioDescanso" => $empleado->inicioDescanso,
+                "duracionDescanso" => $empleado->duracionDescanso,
+                "salida" => $empleado->salida,
+                "empleados" => $empleados
+            ]);
+        } else {
+            echo view("ajax.cargarPerfil", [
+                "user" => "",
+                "name" => $request->name,
+                "email" => "",
+                "esAdmin" => "0",
+                "entrada" => "09:00:00",
+                "inicioDescanso" => "13:00:00",
+                "duracionDescanso" => "00:30:00",
+                "salida" => "17:00:00",
+                "empleados" => $empleados
+            ]);
+        }
+    }
 
     public function agenda(Request $request) {
         $user = Auth::user();

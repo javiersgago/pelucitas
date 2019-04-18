@@ -38,12 +38,12 @@ class Agenda {
                 $telefono = $consulta->first()->telefono;
                 $trabajo = $consulta->first()->trabajo()->get()->first()->nombre;
                 $id = $consulta->first()->id;
-                $html .= "<div class=\"col-xs-12\" style=\"height:".($duracion*$this->tamDiv)."px;top:".($inicio*$this->tamDiv)."px;position: absolute;border: solid 1px;\">";
+                $html .= "<div class=\"col-xs-11\" style=\"height:".($duracion*$this->tamDiv)."px;top:".($inicio*$this->tamDiv)."px;position: absolute;border: solid 1px;\">";
                 $html .= "<p style=\"font-size: 10px;height: 3px;\">".$cliente."</p>";
                 $html .= "<p style=\"font-size: 10px;height: 3px;\">".$telefono."</p>";
                 $html .= "<p style=\"font-size: 10px;height: 3px;\">".$trabajo." ";
                 if (!$consulta->first()->cita_id)
-                    $html .= "<button onclick=\"borrarCita(".$id.")\">X</button></p>";
+                    $html .= "<button onclick=\"borrarCita(".$id.")\" class='btn btn-danger btn-xs'>X</button></p>";
                 else
                     $html .= "(Continuación)</p>";
             }
