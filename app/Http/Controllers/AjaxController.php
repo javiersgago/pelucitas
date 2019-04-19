@@ -71,7 +71,7 @@ class AjaxController extends Controller
                 "empleados" => $empleados,
                 "servicios" => $servicios,
                 "submit" => "Actualizar",
-                "borrar" => "true"
+                "borrar" => !$empleado->esAdmin
             ]);
         } else {
             foreach ($trabajos as $trabajo) {
