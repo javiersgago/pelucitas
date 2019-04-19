@@ -37,6 +37,12 @@
 		Inicio descanso <input type="time" id="inicioDescanso" name="inicioDescanso" value="13:00:00" required step="300"><br>
 		Duración descanso <input type="time" id="duracionDescanso" name="duracionDescanso" value="00:30:00" required step="300"><br>
 		Hora de salida <input type="time" id="salida" name="salida" value="17:00:00" required step="300"><br>
+		Servicios<br>
+		<div style="border: solid 1px;height: 150px;width: 300px; overflow-y: scroll;">
+			@foreach ($servicios as $servicio)
+				<input type="checkbox" name="servicios[]" value="{{ $servicio->id }}"> {{ $servicio->nombre }}<br>
+			@endforeach
+		</div>
 		<input type="submit" value="{{ $submit }}">
 	</form>
 @endsection

@@ -23,4 +23,14 @@ Hora de entrada <input type="time" id="entrada" name="entrada" value="{{ $entrad
 Inicio descanso <input type="time" id="inicioDescanso" name="inicioDescanso" value="{{ $inicioDescanso }}" required><br>
 Duración descanso <input type="time" id="duracionDescanso" name="duracionDescanso" value="{{ $duracionDescanso }}" required><br>
 Hora de salida <input type="time" id="salida" name="salida" value="{{ $salida }}" required><br>
+Servicios<br>
+<div style="border: solid 1px;height: 150px;width: 300px; overflow-y: scroll;">
+	@foreach ($servicios as $id => $servicio)
+		@if ($servicio->checked)
+			<input type="checkbox" name="servicios[]" value="{{ $id }}" checked="true"> {{ $servicio->nombre }}<br>
+		@else
+			<input type="checkbox" name="servicios[]" value="{{ $id }}"> {{ $servicio->nombre }}<br>
+		@endif
+	@endforeach
+</div>
 <input type="submit" value="{{ $submit }}">

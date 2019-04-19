@@ -45,8 +45,18 @@ class AjaxController extends Controller
 
     public function cargarPerfil(Request $request) {
         $empleados = User::all();
+        $trabajos = Trabajo::all();
+        $servicios = array();
         if ($request->user) {
             $empleado = User::find($request->user);
+            foreach ($trabajos as $trabajo) {
+                $servicios[$trabajo->id] = new \stdClass();
+                if ($trabajo->users()->where('user_id', $request->user)->first())
+                    $servicios[$trabajo->id]->checked = true;
+                else
+                    $servicios[$trabajo->id]->checked = false;
+                $servicios[$trabajo->id]->nombre = $trabajo->nombre;
+            }
             echo view("ajax.cargarPerfil", [
                 "user" => $request->user,
                 "name" => $empleado->name,
@@ -57,9 +67,15 @@ class AjaxController extends Controller
                 "duracionDescanso" => $empleado->duracionDescanso,
                 "salida" => $empleado->salida,
                 "empleados" => $empleados,
+                "servicios" => $servicios,
                 "submit" => "Actualizar"
             ]);
         } else {
+            foreach ($trabajos as $trabajo) {
+                $servicios[$trabajo->id] = new \stdClass();
+                $servicios[$trabajo->id]->checked = false;
+                $servicios[$trabajo->id]->nombre = $trabajo->nombre;
+            }
             echo view("ajax.cargarPerfil", [
                 "user" => "",
                 "name" => $request->name,
@@ -70,6 +86,7 @@ class AjaxController extends Controller
                 "duracionDescanso" => "00:30:00",
                 "salida" => "17:00:00",
                 "empleados" => $empleados,
+                "servicios" => $servicios,
                 "submit" => "Añadir"
             ]);
         }

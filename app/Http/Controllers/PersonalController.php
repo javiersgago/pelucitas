@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Trabajo;
 use Illuminate\Support\Facades\Auth;
 
 class PersonalController extends Controller
@@ -18,10 +19,12 @@ class PersonalController extends Controller
         if (!$user->esAdmin)
             return redirect("/empleados");
         $empleados = User::all();
+        $servicios = Trabajo::all();
         return view("personal", [
             "mensaje" => "",
             'user' => $user,
             "empleados" => $empleados,
+            "servicios" => $servicios,
             "submit" => "Añadir"
         ]);
     }
@@ -65,12 +68,18 @@ class PersonalController extends Controller
         $empleado->duracionDescanso = $request->duracionDescanso;
         $empleado->salida = $request->salida;
         $empleado->save();
+        $empleado->trabajos()->detach();
+        foreach ($request->servicios as $servicio)
+            $empleado->trabajos()->attach($servicio);
+        $empleado->save();
         $empleados = User::all();
+        $servicios = Trabajo::all();
         $user = Auth::user();
         return view("personal", [
             "mensaje" => $mensaje,
             'user' => $user,
             "empleados" => $empleados,
+            "servicios" => $servicios,
             "submit" => "Añadir"
         ]);
     }
