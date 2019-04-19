@@ -7,6 +7,7 @@ use App\Cita;
 use App\Trabajo;
 use Illuminate\Support\Facades\Auth;
 use App\Agenda;
+use App\Contacto;
 
 class AjaxController extends Controller
 {
@@ -117,6 +118,14 @@ class AjaxController extends Controller
         if ($user->esAdmin) {
             $servicio = Trabajo::find($request->servicio);
             $servicio->delete(); 
+        }
+    }
+
+    public function borrarMensaje(Request $request) {
+        $user = Auth::user();
+        if ($user->esAdmin) {
+            $contacto = Contacto::find($request->mensaje);
+            $contacto->delete(); 
         }
     }
 

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matiz Peluqueros</title>
 <link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
 function citasPeluquero(peluquero) {
 	var xhr = new XMLHttpRequest();

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zona Empleados</title>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/app.css">
 
 <!-- Latest compiled and minified CSS -->
@@ -12,8 +13,11 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
 function agenda() {
 	var xhr = new XMLHttpRequest();
@@ -119,6 +123,25 @@ function borrarServicio(servicio) {
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		var parametros = "_token={{ csrf_token() }}";
 		var parametros = parametros + "&servicio=" + servicio;
+		xhr.send(parametros);
+	}
+}
+function borrarMensaje(mensaje) {
+	if (confirm("¿Seguro que desea borrar este mensaje?")) {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText.includes('Error')) {
+					alert(this.responseText);
+				} else {
+					window.location.replace("buzon");
+				}
+			}
+		};
+		xhr.open("POST", "../borrarMensaje", true);
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		var parametros = "_token={{ csrf_token() }}";
+		var parametros = parametros + "&mensaje=" + mensaje;
 		xhr.send(parametros);
 	}
 }

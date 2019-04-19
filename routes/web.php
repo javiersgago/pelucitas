@@ -22,6 +22,7 @@ Route::redirect('empleados', 'empleados/agenda');
 Route::resource('empleados/agenda', 'EmpleadosController');
 Route::resource('empleados/personal', 'PersonalController');
 Route::resource('empleados/servicios', 'GestionServiciosController');
+Route::resource('empleados/buzon', 'BuzonController');
 
 // Rutas Auth
 Auth::routes(['register' => false]);
@@ -36,3 +37,4 @@ Route::post('cargarPerfil', 'AjaxController@cargarPerfil');
 Route::post('borrarPerfil', 'AjaxController@borrarPerfil');
 Route::post('cargarServicio', 'AjaxController@cargarServicio');
 Route::post('borrarServicio', 'AjaxController@borrarServicio');
+Route::post('borrarMensaje', 'AjaxController@borrarMensaje');
