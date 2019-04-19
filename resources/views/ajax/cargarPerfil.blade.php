@@ -34,3 +34,6 @@ Servicios<br>
 	@endforeach
 </div>
 <input type="submit" value="{{ $submit }}">
+@if ($borrar)
+	<button type="button" onclick="borrarPerfil({{ $user }})">Borrar</button>
+@endif

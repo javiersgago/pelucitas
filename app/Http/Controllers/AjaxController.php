@@ -68,7 +68,8 @@ class AjaxController extends Controller
                 "salida" => $empleado->salida,
                 "empleados" => $empleados,
                 "servicios" => $servicios,
-                "submit" => "Actualizar"
+                "submit" => "Actualizar",
+                "borrar" => "true"
             ]);
         } else {
             foreach ($trabajos as $trabajo) {
@@ -87,9 +88,15 @@ class AjaxController extends Controller
                 "salida" => "17:00:00",
                 "empleados" => $empleados,
                 "servicios" => $servicios,
-                "submit" => "Añadir"
+                "submit" => "Añadir",
+                "borrar" => ""
             ]);
         }
+    }
+
+    public function borrarPerfil(Request $request) {
+        $user = User::find($request->user);
+        $user->delete(); 
     }
 
     public function agenda(Request $request) {

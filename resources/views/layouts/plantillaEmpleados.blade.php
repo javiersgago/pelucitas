@@ -84,6 +84,25 @@ function cargarServicio(servicio) {
 	var parametros = parametros + "&servicio=" + servicio;
 	xhr.send(parametros);
 }
+function borrarPerfil(user) {
+	if (confirm("¿Seguro que desea borrar este empleado?")) {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText.includes('Error')) {
+					alert(this.responseText);
+				} else {
+					window.location.replace("personal");
+				}
+			}
+		};
+		xhr.open("POST", "../borrarPerfil", true);
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		var parametros = "_token={{ csrf_token() }}";
+		var parametros = parametros + "&user=" + user;
+		xhr.send(parametros);
+	}
+}
 </script>
 </head>
 <body>
