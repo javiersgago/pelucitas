@@ -11,99 +11,113 @@ use App\Agenda;
 class AjaxController extends Controller
 {
     public function cargarServicio(Request $request) {
-        $servicios = Trabajo::orderBy('nombre', 'asc')->get();
-        $categorias = Trabajo::orderBy('nombre', 'asc')->get()->unique('categoria');
-        if ($request->servicio) {
-            $servicio = Trabajo::find($request->servicio);
-            echo view("ajax.cargarServicio", [
-                "servicioActual" => $request->servicio,
-                "servicios" => $servicios,
-                "nombre" => $servicio->nombre,
-                "categoriaActual" => $servicio->categoria,
-                "categorias" => $categorias,
-                "precio" => number_format($servicio->precio,2),
-                "duracion" => $servicio->duracion,
-                "inicioReposo" => $servicio->inicioReposo,
-                "duracionReposo" => $servicio->duracionReposo,
-                "submit" => "Actualizar",
-                "borrar" => "true"
-            ]);
-        } else {
-            echo view("ajax.cargarServicio", [
-                "servicioActual" => "",
-                "servicios" => $servicios,
-                "nombre" => "",
-                "categoriaActual" => "",
-                "categorias" => $categorias,
-                "precio" => "",
-                "duracion" => "00:00:00",
-                "inicioReposo" => "",
-                "duracionReposo" => "",
-                "submit" => "Añadir",
-                "borrar" => ""
-            ]);
+        $user = Auth::user();
+        if ($user->esAdmin) {
+            $servicios = Trabajo::orderBy('nombre', 'asc')->get();
+            $categorias = Trabajo::orderBy('nombre', 'asc')->get()->unique('categoria');
+            if ($request->servicio) {
+                $servicio = Trabajo::find($request->servicio);
+                echo view("ajax.cargarServicio", [
+                    "servicioActual" => $request->servicio,
+                    "servicios" => $servicios,
+                    "nombre" => $servicio->nombre,
+                    "categoriaActual" => $servicio->categoria,
+                    "categorias" => $categorias,
+                    "precio" => number_format($servicio->precio,2),
+                    "duracion" => $servicio->duracion,
+                    "inicioReposo" => $servicio->inicioReposo,
+                    "duracionReposo" => $servicio->duracionReposo,
+                    "submit" => "Actualizar",
+                    "borrar" => "true"
+                ]);
+            } else {
+                echo view("ajax.cargarServicio", [
+                    "servicioActual" => "",
+                    "servicios" => $servicios,
+                    "nombre" => "",
+                    "categoriaActual" => "",
+                    "categorias" => $categorias,
+                    "precio" => "",
+                    "duracion" => "00:00:00",
+                    "inicioReposo" => "",
+                    "duracionReposo" => "",
+                    "submit" => "Añadir",
+                    "borrar" => ""
+                ]);
+            }
         }
     }
 
     public function cargarPerfil(Request $request) {
-        $empleados = User::all();
-        $trabajos = Trabajo::all();
-        $servicios = array();
-        if ($request->user) {
-            $empleado = User::find($request->user);
-            foreach ($trabajos as $trabajo) {
-                $servicios[$trabajo->id] = new \stdClass();
-                if ($trabajo->users()->where('user_id', $request->user)->first())
-                    $servicios[$trabajo->id]->checked = true;
-                else
+        $user = Auth::user();
+        if ($user->esAdmin) {
+            $empleados = User::all();
+            $trabajos = Trabajo::all();
+            $servicios = array();
+            if ($request->user) {
+                $empleado = User::find($request->user);
+                foreach ($trabajos as $trabajo) {
+                    $servicios[$trabajo->id] = new \stdClass();
+                    if ($trabajo->users()->where('user_id', $request->user)->first())
+                        $servicios[$trabajo->id]->checked = true;
+                    else
+                        $servicios[$trabajo->id]->checked = false;
+                    $servicios[$trabajo->id]->nombre = $trabajo->nombre;
+                }
+                echo view("ajax.cargarPerfil", [
+                    "currentUser" => $user->id,
+                    "user" => $request->user,
+                    "name" => $empleado->name,
+                    "email" => $empleado->email,
+                    "esAdmin" => $empleado->esAdmin,
+                    "entrada" => $empleado->entrada,
+                    "inicioDescanso" => $empleado->inicioDescanso,
+                    "duracionDescanso" => $empleado->duracionDescanso,
+                    "salida" => $empleado->salida,
+                    "empleados" => $empleados,
+                    "servicios" => $servicios,
+                    "submit" => "Actualizar",
+                    "borrar" => !$empleado->esAdmin
+                ]);
+            } else {
+                foreach ($trabajos as $trabajo) {
+                    $servicios[$trabajo->id] = new \stdClass();
                     $servicios[$trabajo->id]->checked = false;
-                $servicios[$trabajo->id]->nombre = $trabajo->nombre;
+                    $servicios[$trabajo->id]->nombre = $trabajo->nombre;
+                }
+                echo view("ajax.cargarPerfil", [
+                    "currentUser" => "",
+                    "user" => "",
+                    "name" => $request->name,
+                    "email" => "",
+                    "esAdmin" => "0",
+                    "entrada" => "09:00:00",
+                    "inicioDescanso" => "13:00:00",
+                    "duracionDescanso" => "00:30:00",
+                    "salida" => "17:00:00",
+                    "empleados" => $empleados,
+                    "servicios" => $servicios,
+                    "submit" => "Añadir",
+                    "borrar" => ""
+                ]);
             }
-            echo view("ajax.cargarPerfil", [
-                "user" => $request->user,
-                "name" => $empleado->name,
-                "email" => $empleado->email,
-                "esAdmin" => $empleado->esAdmin,
-                "entrada" => $empleado->entrada,
-                "inicioDescanso" => $empleado->inicioDescanso,
-                "duracionDescanso" => $empleado->duracionDescanso,
-                "salida" => $empleado->salida,
-                "empleados" => $empleados,
-                "servicios" => $servicios,
-                "submit" => "Actualizar",
-                "borrar" => !$empleado->esAdmin
-            ]);
-        } else {
-            foreach ($trabajos as $trabajo) {
-                $servicios[$trabajo->id] = new \stdClass();
-                $servicios[$trabajo->id]->checked = false;
-                $servicios[$trabajo->id]->nombre = $trabajo->nombre;
-            }
-            echo view("ajax.cargarPerfil", [
-                "user" => "",
-                "name" => $request->name,
-                "email" => "",
-                "esAdmin" => "0",
-                "entrada" => "09:00:00",
-                "inicioDescanso" => "13:00:00",
-                "duracionDescanso" => "00:30:00",
-                "salida" => "17:00:00",
-                "empleados" => $empleados,
-                "servicios" => $servicios,
-                "submit" => "Añadir",
-                "borrar" => ""
-            ]);
         }
     }
 
     public function borrarPerfil(Request $request) {
-        $user = User::find($request->user);
-        $user->delete(); 
+        $usuario = Auth::user();
+        if ($usuario->esAdmin) {
+            $user = User::find($request->user);
+            $user->delete(); 
+        }
     }
 
     public function borrarServicio(Request $request) {
-        $servicio = Trabajo::find($request->servicio);
-        $servicio->delete(); 
+        $user = Auth::user();
+        if ($user->esAdmin) {
+            $servicio = Trabajo::find($request->servicio);
+            $servicio->delete(); 
+        }
     }
 
     public function agenda(Request $request) {
@@ -125,7 +139,7 @@ class AjaxController extends Controller
             $cita->delete();
         } else {
             $cita->delete();
-        }   
+        }  
     }
 
     public function citasPeluquero(Request $request)

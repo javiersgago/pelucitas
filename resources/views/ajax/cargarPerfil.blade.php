@@ -13,8 +13,13 @@ Nombre <input type="text" id="name" name="name" placeholder="Nombre" value="{{ $
 Correo electrónico <input type="text" id="email" name="email" placeholder="Correo electrónico" value="{{ $email }}"><br>
 Contraseña <input type="password" id="password" name="password" placeholder="Contraseña"><br>
 @if ($esAdmin)
-	Administrador <input type="radio" id="esAdmin0" name="esAdmin" value="0"> No 
-	<input type="radio" id="esAdmin1" name="esAdmin" value="1" checked="true"> Si<br>
+	@if ($currentUser == $user)
+		Administrador <input type="radio" id="esAdmin0" name="esAdmin" value="0" disabled> No 
+		<input type="radio" id="esAdmin1" name="esAdmin" value="1" checked="true"> Si<br>
+	@else
+		Administrador <input type="radio" id="esAdmin0" name="esAdmin" value="0"> No 
+		<input type="radio" id="esAdmin1" name="esAdmin" value="1" checked="true"> Si<br>
+	@endif
 @else
 	Administrador <input type="radio" id="esAdmin0" name="esAdmin" value="0" checked="true"> No 
 	<input type="radio" id="esAdmin1" name="esAdmin" value="1"> Si<br>
