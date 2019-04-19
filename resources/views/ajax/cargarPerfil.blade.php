@@ -23,4 +23,4 @@ Hora de entrada <input type="time" id="entrada" name="entrada" value="{{ $entrad
 Inicio descanso <input type="time" id="inicioDescanso" name="inicioDescanso" value="{{ $inicioDescanso }}" required><br>
 Duración descanso <input type="time" id="duracionDescanso" name="duracionDescanso" value="{{ $duracionDescanso }}" required><br>
 Hora de salida <input type="time" id="salida" name="salida" value="{{ $salida }}" required><br>
-<input type="submit" value="Enviar">
+<input type="submit" value="{{ $submit }}">

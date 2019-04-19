@@ -33,10 +33,10 @@
 		Contraseña <input type="password" name="password" placeholder="Contraseña"><br>
 		Administrador <input type="radio" id="esAdmin0" name="esAdmin" value="0" checked="true"> No 
 		<input type="radio" id="esAdmin1" name="esAdmin" value="1"> Si<br>
-		Hora de entrada <input type="time" id="entrada" name="entrada" value="09:00:00" required><br>
-		Inicio descanso <input type="time" id="inicioDescanso" name="inicioDescanso" value="13:00:00" required><br>
-		Duración descanso <input type="time" id="duracionDescanso" name="duracionDescanso" value="00:30:00" required><br>
-		Hora de salida <input type="time" id="salida" name="salida" value="17:00:00" required><br>
-		<input type="submit" value="Enviar">
+		Hora de entrada <input type="time" id="entrada" name="entrada" value="09:00:00" required step="300"><br>
+		Inicio descanso <input type="time" id="inicioDescanso" name="inicioDescanso" value="13:00:00" required step="300"><br>
+		Duración descanso <input type="time" id="duracionDescanso" name="duracionDescanso" value="00:30:00" required step="300"><br>
+		Hora de salida <input type="time" id="salida" name="salida" value="17:00:00" required step="300"><br>
+		<input type="submit" value="{{ $submit }}">
 	</form>
 @endsection

@@ -23,7 +23,8 @@ class AjaxController extends Controller
                 "inicioDescanso" => $empleado->inicioDescanso,
                 "duracionDescanso" => $empleado->duracionDescanso,
                 "salida" => $empleado->salida,
-                "empleados" => $empleados
+                "empleados" => $empleados,
+                "submit" => "Actualizar"
             ]);
         } else {
             echo view("ajax.cargarPerfil", [
@@ -35,7 +36,8 @@ class AjaxController extends Controller
                 "inicioDescanso" => "13:00:00",
                 "duracionDescanso" => "00:30:00",
                 "salida" => "17:00:00",
-                "empleados" => $empleados
+                "empleados" => $empleados,
+                "submit" => "Añadir"
             ]);
         }
     }

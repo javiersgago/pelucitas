@@ -14,12 +14,15 @@ class PersonalController extends Controller
     }
 
     public function index() {
-        $empleados = User::all();
         $user = Auth::user();
+        if (!$user->esAdmin)
+            return redirect("/empleados");
+        $empleados = User::all();
         return view("personal", [
             "mensaje" => "",
             'user' => $user,
-            "empleados" => $empleados
+            "empleados" => $empleados,
+            "submit" => "Añadir"
         ]);
     }
 
@@ -67,7 +70,8 @@ class PersonalController extends Controller
         return view("personal", [
             "mensaje" => $mensaje,
             'user' => $user,
-            "empleados" => $empleados
+            "empleados" => $empleados,
+            "submit" => "Añadir"
         ]);
     }
 }
