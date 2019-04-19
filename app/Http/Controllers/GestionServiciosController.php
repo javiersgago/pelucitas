@@ -47,11 +47,11 @@ class GestionServiciosController extends Controller
             ]);
         if ($request->servicio) {
             $servicio = Trabajo::find($request->servicio);
-            $mensaje = "Se han actualizado los datos del " . $servicio->name;
+            $mensaje = "Se han actualizado los datos del " . $servicio->nombre;
         }
         else {
             $servicio = new Trabajo;
-            $mensaje = "Se ha registrado el " . $request->name . " como nuevo servicio";
+            $mensaje = "Se ha registrado el " . $request->nombre . " como nuevo servicio";
         }
 
         $servicio->nombre = $request->nombre;

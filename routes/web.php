@@ -33,3 +33,4 @@ Route::post('citasDia', 'AjaxController@citasDia');
 Route::post('agenda', 'AjaxController@agenda');
 Route::post('borrarCita', 'AjaxController@borrarCita');
 Route::post('cargarPerfil', 'AjaxController@cargarPerfil');
+Route::post('cargarServicio', 'AjaxController@cargarServicio');

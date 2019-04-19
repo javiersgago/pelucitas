@@ -10,6 +10,39 @@ use App\Agenda;
 
 class AjaxController extends Controller
 {
+    public function cargarServicio(Request $request) {
+        $servicios = Trabajo::orderBy('nombre', 'asc')->get();
+        $categorias = Trabajo::orderBy('nombre', 'asc')->get()->unique('categoria');
+        if ($request->servicio) {
+            $servicio = Trabajo::find($request->servicio);
+            echo view("ajax.cargarServicio", [
+                "servicioActual" => $request->servicio,
+                "servicios" => $servicios,
+                "nombre" => $servicio->nombre,
+                "categoriaActual" => $servicio->categoria,
+                "categorias" => $categorias,
+                "precio" => number_format($servicio->precio,2),
+                "duracion" => $servicio->duracion,
+                "inicioReposo" => $servicio->inicioReposo,
+                "duracionReposo" => $servicio->duracionReposo,
+                "submit" => "Actualizar"
+            ]);
+        } else {
+            echo view("ajax.cargarServicio", [
+                "servicioActual" => "",
+                "servicios" => $servicios,
+                "nombre" => "",
+                "categoriaActual" => "",
+                "categorias" => $categorias,
+                "precio" => "",
+                "duracion" => "00:00:00",
+                "inicioReposo" => "",
+                "duracionReposo" => "",
+                "submit" => "Añadir"
+            ]);
+        }
+    }
+
     public function cargarPerfil(Request $request) {
         $empleados = User::all();
         if ($request->user) {
