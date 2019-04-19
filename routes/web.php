@@ -35,3 +35,4 @@ Route::post('borrarCita', 'AjaxController@borrarCita');
 Route::post('cargarPerfil', 'AjaxController@cargarPerfil');
 Route::post('borrarPerfil', 'AjaxController@borrarPerfil');
 Route::post('cargarServicio', 'AjaxController@cargarServicio');
+Route::post('borrarServicio', 'AjaxController@borrarServicio');

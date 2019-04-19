@@ -21,3 +21,6 @@
 		Inicio reposo <input type="time" id="inicioReposo" name="inicioReposo" step="300" value="{{ $inicioReposo }}"><br>
 		Duración reposo <input type="time" id="duracionReposo" name="duracionReposo" step="300" value="{{ $duracionReposo }}"><br>
 		<input type="submit" value="{{ $submit }}">
+		@if ($borrar)
+	<button type="button" onclick="borrarServicio({{ $servicioActual }})">Borrar</button>
+@endif

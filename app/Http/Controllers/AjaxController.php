@@ -25,7 +25,8 @@ class AjaxController extends Controller
                 "duracion" => $servicio->duracion,
                 "inicioReposo" => $servicio->inicioReposo,
                 "duracionReposo" => $servicio->duracionReposo,
-                "submit" => "Actualizar"
+                "submit" => "Actualizar",
+                "borrar" => "true"
             ]);
         } else {
             echo view("ajax.cargarServicio", [
@@ -38,7 +39,8 @@ class AjaxController extends Controller
                 "duracion" => "00:00:00",
                 "inicioReposo" => "",
                 "duracionReposo" => "",
-                "submit" => "Añadir"
+                "submit" => "Añadir",
+                "borrar" => ""
             ]);
         }
     }
@@ -97,6 +99,11 @@ class AjaxController extends Controller
     public function borrarPerfil(Request $request) {
         $user = User::find($request->user);
         $user->delete(); 
+    }
+
+    public function borrarServicio(Request $request) {
+        $servicio = Trabajo::find($request->servicio);
+        $servicio->delete(); 
     }
 
     public function agenda(Request $request) {
