@@ -1,4 +1,4 @@
-<option selected disabled hidden>Servicio</option>
-@foreach ($trabajos as $trabajo)
-	<option value="{{ $trabajo->id }}">{{ $trabajo->nombre }}</option>
+<option selected disabled hidden>Elija peluquero</option>
+@foreach ($peluqueros as $peluquero)
+	<option value="{{ $peluquero->id }}">{{ $peluquero->name }}</option>
 @endforeach

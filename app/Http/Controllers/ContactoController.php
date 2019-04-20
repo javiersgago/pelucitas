@@ -15,6 +15,12 @@ class ContactoController extends Controller
     }
     
     public function store(Request $request) {
+        $validatedData = $request->validate([
+            'nombre' => 'required',
+            'telefono' => 'required|regex:/[0-9]{9}/',
+            'email' => 'required|email',
+            'comentario' => 'required'
+        ]);
         $contacto = new Contacto;
         $contacto->nombre = $request->nombre;
         $contacto->telefono = $request->telefono;

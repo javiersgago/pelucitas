@@ -149,7 +149,8 @@ function borrarMensaje(mensaje) {
 </head>
 <body>
 	<div>
-		<a href="../logout">Cerrar sesión</a>
+		<a href="../logout">Cerrar sesión</a> 
+		<a href="..">Ver página</a>
 		<h2>@yield("pagina")</h2>
 		@if ($user->esAdmin)
 			<ul>

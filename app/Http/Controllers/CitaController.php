@@ -10,19 +10,35 @@ use App\Trabajo;
 class CitaController extends Controller
 {
     public function index() {
-        $peluqueros = User::all();
+        $trabajos = Trabajo::all();
+        $resultado = array();
+        foreach($trabajos as $trabajo) {
+            if ($trabajo->users()->first()) {
+                $resultado2 = new \stdClass();
+                $resultado2->nombre = $trabajo->nombre;
+                $resultado2->id = $trabajo->id;
+                array_push($resultado, $resultado2);
+            }
+        }
         $manana = new \DateTime();
         $manana->modify('+1 day');
         return view("cita", [
-            "tipo" => "",
             "mensaje" => "",
-            "peluqueros" => $peluqueros,
+            "servicios" => $resultado,
             "manana" => $manana->format('Y-m-d')
         ]);
     }
     
     public function store(Request $request) {
-        
+        $validatedData = $request->validate([
+            'cliente' => 'required',
+            'telefono' => 'required|regex:/[0-9]{9}/',
+            'servicio' => 'required',
+            'peluquero' => 'required',
+            'dia' => 'required',
+            'hora' => 'required'
+        ]);
+
         $idTrabajo = $request->servicio;
         $trabajo = Trabajo::find($idTrabajo);
         $aux = new \DateTime("00:00:00");
@@ -62,13 +78,22 @@ class CitaController extends Controller
             $cita2->save();
         }
         
-        $peluqueros = User::all();
+        $trabajos = Trabajo::all();
+        $resultado = array();
+        foreach($trabajos as $trabajo) {
+            if ($trabajo->users()->first()) {
+                $resultado2 = new \stdClass();
+                $resultado2->nombre = $trabajo->nombre;
+                $resultado2->id = $trabajo->id;
+                array_push($resultado, $resultado2);
+            }
+        }
+
         $manana = new \DateTime();
         $manana->modify('+1 day');
         return view("cita", [
-            "tipo" => "confirma",
             "mensaje" => "Su cita se ha registrado",
-            "peluqueros" => $peluqueros,
+            "servicios" => $resultado,
             "manana" => $manana->format('Y-m-d')
         ]);
     }

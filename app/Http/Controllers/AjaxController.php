@@ -153,10 +153,10 @@ class AjaxController extends Controller
 
     public function citasPeluquero(Request $request)
     {
-        $id = $request->peluquero;
-        $trabajos = User::find($id)->trabajos()->get();
+        $id = $request->servicio;
+        $peluqueros = Trabajo::find($id)->users()->get();
         echo view("ajax.citasPeluquero", [
-            "trabajos" => $trabajos
+            "peluqueros" => $peluqueros
         ]);
     }
 
