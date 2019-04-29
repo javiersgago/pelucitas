@@ -31,8 +31,8 @@ class CitaController extends Controller
     
     public function store(Request $request) {
         $validatedData = $request->validate([
-            'cliente' => 'required',
-            'telefono' => 'required|regex:/[0-9]{9}/',
+            'cliente' => 'required|max:20',
+            'telefono' => 'required|min:9|max:9|regex:/[0-9]/',
             'servicio' => 'required',
             'peluquero' => 'required',
             'dia' => 'required',

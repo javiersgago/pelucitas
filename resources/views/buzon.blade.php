@@ -35,6 +35,12 @@
 	})
 });
 </script>
+<div class="row">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+			<h3 style="text-align: center;">Buzón de contacto</h3>
+		</div>
+	</div>
+	<hr>
 <div class="container">
 <table id="tabla" class="display">
     <thead>

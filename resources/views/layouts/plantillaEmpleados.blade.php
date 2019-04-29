@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zona Empleados</title>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/app.css">
+<link rel="stylesheet" type="text/css" href="../../css/app.css">
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -18,6 +18,11 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="../css/privada.css">
 <script>
 function agenda() {
 	var xhr = new XMLHttpRequest();
@@ -148,19 +153,43 @@ function borrarMensaje(mensaje) {
 </script>
 </head>
 <body>
-	<div>
-		<a href="../logout">Cerrar sesión</a> 
-		<a href="..">Ver página</a>
-		<h2>@yield("pagina")</h2>
-		@if ($user->esAdmin)
-			<ul>
-				<li><a href="agenda">Agendas</a></li>
-				<li><a href="personal">Trabajadores</a></li>
-				<li><a href="servicios">Servicios</a></li>
-				<li><a href="buzon">Buzón de contacto</a></li>
-			</ul>
-		@endif
+	<nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#colapsado">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+				</button>
+				<span class="navbar-brand">Zona de empleados</span>
+            </div>
+            <div class="collapse navbar-collapse" id="colapsado">
+				@if ($user->esAdmin)
+				<ul class="nav navbar-nav">
+					<li><a href="agenda">Agendas</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="personal">Trabajadores</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="servicios">Servicios</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="buzon">Buzón</a></li>
+				</ul>
+				@endif
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="..">Ver página</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="../logout">Cerrar sesión</a></li>
+				</ul>
+            </div>
+        </div>
+	</nav>
+		
+	<div class="container principal">
+		@yield("contenido")
 	</div>
-	<div>@yield("contenido")</div>
 </body>
 </html>

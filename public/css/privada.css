@@ -1,0 +1,41 @@
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 10rem;
+    min-height: 100%;
+    font-family: 'Raleway',sans-serif;
+    background-color: #EEF;
+}
+
+hr {
+  border-color: #000;
+}
+
+.principal {
+    position: relative;
+    top: 60px;
+}
+
+.hora {
+  text-align: center;
+}
+
+.horas {
+  background-color: #FFF;
+  border: solid 1px;
+  padding-left: 8px;
+}
+
+.horas:nth-child(2n) {
+  background-color: #DDF;
+}
+
+.citas {
+  position: absolute;
+  border: solid 1px;
+  background-color: #FFF;
+}
+
+.citas:nth-child(2n) {
+  background-color: #DDF;
+}

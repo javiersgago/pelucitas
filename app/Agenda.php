@@ -4,7 +4,7 @@ namespace App;
 
 class Agenda {
 
-    public $tamDiv = 20;
+    public $tamDiv = 25;
 
     public function generar($userId, $dia) {
         $citas = array();
@@ -38,12 +38,12 @@ class Agenda {
                 $telefono = $consulta->first()->telefono;
                 $trabajo = $consulta->first()->trabajo()->get()->first()->nombre;
                 $id = $consulta->first()->id;
-                $html .= "<div class=\"col-xs-11\" style=\"height:".($duracion*$this->tamDiv)."px;top:".($inicio*$this->tamDiv)."px;position: absolute;border: solid 1px;\">";
-                $html .= "<p style=\"font-size: 10px;height: 3px;\">".$cliente."</p>";
-                $html .= "<p style=\"font-size: 10px;height: 3px;\">".$telefono."</p>";
-                $html .= "<p style=\"font-size: 10px;height: 3px;\">".$trabajo." ";
+                $html .= "<div class=\"col-xs-11 citas\" style=\"height:".($duracion*$this->tamDiv)."px;top:".($inicio*$this->tamDiv)."px;padding-top:".((($duracion*$this->tamDiv)-$this->tamDiv)/2)."px;\">";
+                $html .= "<p class='col-xs-11' style=\"font-size: 12px;\">".$cliente." - ";
+                $html .= $telefono." - ";
+                $html .= $trabajo." ";
                 if (!$consulta->first()->cita_id)
-                    $html .= "<button onclick=\"borrarCita(".$id.")\" class='btn btn-danger btn-xs'>X</button></p>";
+                    $html .= "</p><button onclick=\"borrarCita(".$id.")\" class='btn btn-danger btn-xs col-xs-1'>X</button>";
                 else
                     $html .= "(Continuación)</p>";
             }
