@@ -22,7 +22,7 @@ hr {
 
 .horas {
   background-color: #FFF;
-  border: solid 1px;
+  border-top: solid 1px;
   padding-left: 8px;
 }
 
@@ -32,10 +32,17 @@ hr {
 
 .citas {
   position: absolute;
-  border: solid 1px;
   background-color: #FFF;
+  border-radius: 5px;
 }
 
 .citas:nth-child(2n) {
   background-color: #DDF;
+}
+
+.servicios {
+  border-radius: 5px;
+  height: 150px; 
+  overflow-y: scroll;
+  background-color: #FFF;
 }

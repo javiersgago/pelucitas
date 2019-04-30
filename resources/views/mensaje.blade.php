@@ -18,12 +18,16 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../../css/privada.css">
 </head>
 <body>
-<a href="."><img src="https://image.flaticon.com/icons/png/512/60/60577.png" width="50px" height="50px"></a>
-<p>Nombre: {{$mensaje->nombre}}</p>
-<p>Teléfono: {{$mensaje->telefono}}</p>
-<p>E-Mail: {{$mensaje->email}}</p>
-<p>Comentario: {{$mensaje->comentario}}</p>
-<p>Publicado en: {{$mensaje->created_at}}</p>
+    <div class="container">
+        <a href="."><img src="https://image.flaticon.com/icons/png/512/60/60577.png" width="50px" height="50px"></a>
+        <p>Nombre: {{$mensaje->nombre}}</p>
+        <p>Teléfono: {{$mensaje->telefono}}</p>
+        <p>E-Mail: {{$mensaje->email}}</p>
+        <p>Comentario: {{$mensaje->comentario}}</p>
+        <p>Publicado en: {{$mensaje->created_at}}</p>
+    </div>
 </body>

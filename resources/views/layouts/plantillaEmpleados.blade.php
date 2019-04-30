@@ -43,21 +43,23 @@ function agenda() {
 	xhr.send(parametros);
 }
 function borrarCita(cita) {
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			if (this.responseText.includes('Error')) {
-				alert(this.responseText);
-			} else {
-				agenda();
+	if (confirm("¿Seguro que desea borrar esta cita?")) {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText.includes('Error')) {
+					alert(this.responseText);
+				} else {
+					agenda();
+				}
 			}
-		}
-	};
-	xhr.open("POST", "../borrarCita", true);
-	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	var parametros = "_token={{ csrf_token() }}";
-	var parametros = parametros + "&cita=" + cita;
-	xhr.send(parametros);
+		};
+		xhr.open("POST", "../borrarCita", true);
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		var parametros = "_token={{ csrf_token() }}";
+		var parametros = parametros + "&cita=" + cita;
+		xhr.send(parametros);
+	}
 }
 function cargarPerfil(user) {
 	var xhr = new XMLHttpRequest();
