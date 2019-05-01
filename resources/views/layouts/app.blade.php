@@ -29,9 +29,13 @@
                     Zona de empleados
                 </a>
 
-                
+                <ul class="nav navbar-nav navbar-right">
+					<li><a class="navbar-brand" href="{{ url('/') }}">Ver página</a></li>
+				</ul>
             </div>
         </nav>
+
+       
 
         <main class="py-4">
             @yield('content')
