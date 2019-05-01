@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@yield("pagina")</title>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/app.css">
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,7 +21,7 @@
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" type="text/css" href="css/publica.css">
+<link rel="stylesheet" type="text/css" href="{{ url('/css/publica.css') }}">
 <script>
 function citasServicio(servicio) {
 	var xhr = new XMLHttpRequest();
@@ -98,17 +97,17 @@ function citasHora() {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
 				</button>
-				<a href="{{ url('/') }}"><img src="http://www.monarchballroomdance.com/wp-content/uploads/2017/02/logo-placeholder.png" width="125px" height="50px"></a>
+				<a href="{{ url('/') }}"><img src="images/logo-placeholder.png" width="125px" height="50px"></a>
             </div>
             <div class="collapse navbar-collapse" id="colapsado">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="contacto" class="navbar-brand">Contacto</a></li>
+					<li><a href="{{ url('/contacto') }}" class="navbar-brand">Contacto</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="cita" class="navbar-brand">Pedir Cita</a></li>
+					<li><a href="{{ url('/cita') }}" class="navbar-brand">Pedir Cita</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="servicios" class="navbar-brand">Servicios</a></li>
+					<li><a href="{{ url('/servicios') }}" class="navbar-brand">Servicios</a></li>
 				</ul>
             </div>
         </div>
@@ -119,7 +118,7 @@ function citasHora() {
 	</div>
 	<div class="pie">
 		<div class="hidden-xs col-sm-4 col-sm-offset-0" style="text-align: center;padding: 10px;">
-			<img src="http://www.monarchballroomdance.com/wp-content/uploads/2017/02/logo-placeholder.png"
+			<img src="images/logo-placeholder.png"
 			width="250" height="100">
 		</div>
 		<div class="col-xs-12 col-sm-3" style="padding: 10px;">

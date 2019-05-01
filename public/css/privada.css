@@ -46,3 +46,16 @@ hr {
   overflow-y: scroll;
   background-color: #FFF;
 }
+
+.cabeceraMensaje {
+  background-color: #DDF;
+}
+
+.cuerpoMensaje {
+  background-color: #FFF;
+  min-height: 150px;
+}
+
+.pieMensaje {
+  background-color: #DDF;
+}

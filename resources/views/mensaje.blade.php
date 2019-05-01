@@ -1,33 +1,47 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zona Empleados</title>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../css/app.css">
+@extends("layouts.plantillaEmpleados")
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="../../css/privada.css">
-</head>
-<body>
+@section("contenido")
+<script>
+function borrarMensaje(mensaje) {
+	if (confirm("¿Seguro que desea borrar este mensaje?")) {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				if (this.responseText.includes('Error')) {
+					alert(this.responseText);
+				} else {
+					window.location.replace("../buzon");
+				}
+			}
+		};
+		xhr.open("POST", "../../borrarMensaje", true);
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		var parametros = "_token={{ csrf_token() }}";
+		var parametros = parametros + "&mensaje=" + mensaje;
+		xhr.send(parametros);
+	} else
+        return false;
+}
+</script>
+<link rel="stylesheet" type="text/css" href="{{ url('/css/privada.css') }}">
+<div class="row">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+			<h3 style="text-align: center;">Mensaje</h3>
+		</div>
+	</div>
+	<hr>
     <div class="container">
-        <a href="."><img src="https://image.flaticon.com/icons/png/512/60/60577.png" width="50px" height="50px"></a>
-        <p>Nombre: {{$mensaje->nombre}}</p>
-        <p>Teléfono: {{$mensaje->telefono}}</p>
-        <p>E-Mail: {{$mensaje->email}}</p>
-        <p>Comentario: {{$mensaje->comentario}}</p>
-        <p>Publicado en: {{$mensaje->created_at}}</p>
+        <div class="row">
+            <a href="{{ url('/empleados/buzon') }}" class="col-xs-1"><img src="../../images/back.png" width="25px" height="25px"></a>
+            <a href="javascript:void(0)" onclick="borrarMensaje({{$mensaje->id}})" class='col-xs-1 col-xs-offset-10'><img src="../../images/trash.png" width="25px" height="25px"></a>
+        </div><div class="row cabeceraMensaje">
+            <p class="col-xs-12 col-md-4 col-sm-offset-1">Nombre - {{$mensaje->nombre}}</p>
+            <p class="col-xs-12 col-md-3">Teléfono - {{$mensaje->telefono}}</p>
+            <p class="col-xs-12 col-md-3">E-Mail - {{$mensaje->email}}</p>
+        </div><div class="row cuerpoMensaje">
+            <p class="col-xs-12 col-md-10 col-sm-offset-1">{{$mensaje->comentario}}</p>
+        </div><div class="row pieMensaje">
+            <p class="col-xs-12 col-md-5 col-sm-offset-7">Publicado el {{$mensaje->created_at}}</p>
+        </div>
     </div>
-</body>
+    @endsection

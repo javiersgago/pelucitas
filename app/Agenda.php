@@ -45,7 +45,7 @@ class Agenda {
                 if (!$consulta->first()->cita_id)
                     $html .= "</p><button onclick=\"borrarCita(".$id.")\" class='btn btn-danger btn-xs col-xs-1'>X</button>";
                 else
-                    $html .= "(Continuación)</p>";
+                    $html .= "(Cont...)</p>";
             }
 
             $cita->html = $html;

@@ -32,7 +32,7 @@
       </select>
     </div>
     <div class="col-xs-12 col-sm-4 form-group">
-      <a href="../cita" class="btn btn-info col-xs-12" role="button">Añadir Cita</a>
+      <a href="{{ url('/cita') }}" class="btn btn-info col-xs-12" role="button">Añadir Cita</a>
     </div>
   </div>
   <div class="row" id="agenda">

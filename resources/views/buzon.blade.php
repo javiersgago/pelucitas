@@ -58,7 +58,7 @@
 			<tr>
 				<td onclick="window.location = 'buzon/{{$mensaje->id}}'">
 					@if (!$mensaje->leido)
-						<img src="https://www.outsystems.com/Forums_CW/_image.aspx/A28atdGCIn2i_ZW11S_0KWgJm3iqQCDV9Q==/office-365-connector" width="20px" height="20px">
+						<img src="../images/newmsg.png" width="20px" height="20px">
 					@endif
 				</td>
 				<td onclick="window.location = 'buzon/{{$mensaje->id}}'">{{$mensaje->nombre}}</td>
